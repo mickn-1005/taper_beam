@@ -27,7 +27,7 @@ define functions...
 h_tap(x) = H + 2H * x/L         #tapered beam
 betan(xir) = (sinh(xir)+sin(xir)) / (cosh(xir)-cos(xir)) # 解析解双曲線関数係数¥
 phir(xir, betaval, x::Vector) = cosh.(xir*x/L*pirad) + cos.(xir*x/L*pirad) - betaval * (sinh.(xir*x/L*pirad) + sin.(xir*x/L*pirad))
-function ddphir(xir, betaval, x::Vector)
+@time function ddphir(xir, betaval, x::Vector)
     xrt(x) = cosh.(xir*x/L*pirad) + cos.(xir*x/L*pirad) - betaval * (sinh.(xir*x/L*pirad) + sin.(xir*x/L*pirad))
     dxrt(x) = ForwardDiff.jacobian(xrt,x)        #diagonal matrix
     jacmat = ForwardDiff.jacobian(dxrt,x)
